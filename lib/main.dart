@@ -43,18 +43,19 @@ class _MyHomePageState extends State<MyHomePage> {
         title: title,
         value: value,
         date: DateTime.now());
+
     setState(() {
       _transactions.add(newTransaction);
     });
+
+    Navigator.of(context).pop();
   }
 
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (_) {
-          return TransactionForm((title, text) {
-            print({title, text});
-          });
+          return TransactionForm(_addTransaction);
         });
   }
 
