@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
-      title: const Text('Despesas Pessoais'),
+      title: Text('Despesas Pessoais'),
       actions: [
         IconButton(
           icon: const Icon(Icons.add),
@@ -116,10 +116,10 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Container(
               child: Chart(_recentTransactions),
-              height: availableHeight * 0.4,
+              height: availableHeight * 0.30,
             ),
             Container(
-              height: availableHeight * 0.6,
+              height: availableHeight * 0.70,
               child: TransactionList(_transactions, _removeTransaction),
             ),
           ],
