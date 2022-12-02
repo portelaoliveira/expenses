@@ -1,5 +1,6 @@
 import 'package:expenses/components/transaction_form.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
 import 'dart:math';
 import 'components/transaction_form.dart';
 import 'components/transaction_list.dart';
@@ -14,6 +15,8 @@ class ExpensesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
     return MaterialApp(
       home: const MyHomePage(),
       theme: tema.copyWith(
@@ -54,6 +57,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [];
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((tr) {
@@ -113,15 +117,32 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              child: Chart(_recentTransactions),
-              height: availableHeight * 0.30,
+          children: <Widget>[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text('Exibir Gráfico'),
+                Switch(
+                  value: _showChart,
+                  onChanged: (value) {
+                    setState(
+                      () {
+                        _showChart = value;
+                      },
+                    );
+                  },
+                ),
+              ],
             ),
-            Container(
-              height: availableHeight * 0.70,
-              child: TransactionList(_transactions, _removeTransaction),
-            ),
+            _showChart
+                ? Container(
+                    child: Chart(_recentTransactions),
+                    height: availableHeight * 0.30,
+                  )
+                : Container(
+                    height: availableHeight * 0.70,
+                    child: TransactionList(_transactions, _removeTransaction),
+                  ),
           ],
         ),
       ),
