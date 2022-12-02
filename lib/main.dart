@@ -104,9 +104,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final appBar = AppBar(
       title: Text('Despesas Pessoais'),
-      actions: [
+      actions: <Widget>[
+        if (isLandscape)
+          IconButton(
+            icon: Icon(_showChart ? Icons.list : Icons.show_chart),
+            onPressed: () {
+              setState(
+                () {
+                  _showChart = !_showChart;
+                },
+              );
+            },
+          ),
         IconButton(
-          icon: const Icon(Icons.add),
+          icon: Icon(Icons.add),
           onPressed: () => _openTransactionFormModal(context),
         ),
       ],
